@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> Guestbook </title>
+<style>
+body{
+	overflow-y: auto;
+}
+.entry-card{
+	background-color: burlywood;
+	padding: .5em;
+	border-radius: 10px;
+	width: 33%;
+}
+.entries-container{
+	margin-top: 1em;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+}
+</style>
+	</head>
+	<body>
+		<h1><%=message%></h1>
+			<a href="http://localhost:4000/new-entry">
+			Set a new entry!
+			</a>
+		<div class="entries-container">
+		<% if(entries.length) { %>
+			<% entries.forEach(function(entry) {%>
+				<div class="entry-card">
+					<p>Title: <%=entry.title%> </p>
+					<p>Content: <%=entry.body%></p>
+					<p>Created At: <%=entry.created_at%></p> 
+				</div>
+				<%}) %> 	
+				<%} else { %>
+					<p>No entries</p>	
+					<a href="http://localhost:4000/new-entry">
+			Set a new entry!
+					</a>
+				<% } %>
+		  </div>
+	</body>
+
+</html>

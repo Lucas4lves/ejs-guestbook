@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta lang="en">
+		<title>
+			Guestbook | New Entry
+		</title>
+		<style>
+.form-box{
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	padding: .5em;
+	background-color: blueviolet;
+	border-radius: 10px;
+	width: 300px;
+}
+
+.form-box input {
+	width: 90%;
+}
+
+.form-box button{
+	cursor: pointer;
+	padding: 1em;
+}
+
+.content-wrapper{
+	display: flex;
+	flex-direction: column;
+}
+		</style>
+	</head>
+	<body>
+		<h1>
+			New Entry
+		</h1>
+		<a href="/" >Go back home</a>
+		<div class="form-box">
+			<label for="title">
+				Title: 
+			</label>
+			<input id="title" type="text">
+			<div class="content-wrapper">
+				<label for="body">
+					Content: 
+				</label>
+					<textarea id="body" type="text"></textarea>
+			</div>
+			<button>Submit</button>
+		</div>
+	</body>
+	<script>
+		let btn = document.querySelector('button');
+
+		const getTitleValue = () =>{
+			let value = document.querySelector('#title').value;
+			if(value == ""){
+				alert("An entry must have a non empty title")
+				return
+			}
+			return value
+		}
+
+		const getContentValue = () =>{
+			let value = document.querySelector('#body').value;
+			return value
+		}
+
+		/*
+		*/
+
+		btn.addEventListener('click', () =>{
+			let data = {
+				title: getTitleValue(),
+				body: getContentValue()
+			}
+
+			fetch("http://localhost:4000/new-entry", {method: 'POST', headers:{
+				'Content-Type': 'application/json'
+			}, body: JSON.stringify(data)})
+				.then(res => res.json())
+				.then(data => alert(data.msg))
+				.catch(err => console.log(err))
+		})
+	</script>
+</html>
